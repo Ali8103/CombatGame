@@ -1,17 +1,18 @@
 #Ali Tabba
 #Object Orientated Programming Combat Game
 
+
 import time             #importing necessary libraries
 import random
 
 
 ##
 class Race:
-    def __init__(self, attack, speed, defense, name):   #race
+    def __init__(self, attack, speed, defense, name):   #race class
         self.attack = attack
         self.speed = speed
         self.defense = defense
-        self.name = name                    #3 attributes of race class
+        self.name = name                    #4 attributes of race class
 
     def returnAttack(self):
         return self.attack
@@ -23,17 +24,17 @@ class Race:
         return self.name
 
 
-class Elf(Race):
+class Elf(Race): #inherits from race
     def __init__(self):
-        super().__init__(6,6,50, 'Elf')
+        super().__init__(6,6,50, 'Elf') #(attack ,speed ,defense, name)
 
-class Human(Race):
+class Human(Race): #inherits from race
     def __init__(self):
-        super().__init__(8,4,70, 'Human')
+        super().__init__(8,4,70, 'Human') #(attack ,speed ,defense, name)
 
-class Orc(Race):
+class Orc(Race): #inherits from race
     def __init__(self):  #(a,s,d)
-        super().__init__(10,3,90, 'Orc')
+        super().__init__(10,3,90, 'Orc') #(attack ,speed ,defense, name)
 
 
 
@@ -44,7 +45,7 @@ class Weapon:
         self.weaponattack = attack
         self.weaponspeed = speed
         self.weapondefense = defense
-        self.weaponname = name
+        self.weaponname = name              #4 attributes of weapon class
 
     def ReturnWeaponAttack(self):
         return self.weaponattack
@@ -55,21 +56,21 @@ class Weapon:
     def ReturnWeaponName(self):
         return self.weaponname
 
-class SwordShield (Weapon):
+class SwordShield (Weapon): #inherits from weapon
     def __init__(self):
-        super().__init__(1,1,10, 'SwordShield')
+        super().__init__(1,1,10, 'SwordShield') #(attack ,speed ,defense, name)
 
-class DualSword (Weapon):
+class DualSword (Weapon):   #inherits from weapon
     def __init__(self):
-        super().__init__(0,4,5, 'DualSword')
+        super().__init__(0,4,5, 'DualSword')    #(attack ,speed ,defense, name)
 
-class BowArrow (Weapon):
+class BowArrow (Weapon):    #inherits from weapon
     def __init__(self):
-        super().__init__(4,-1,-5, 'BowArrow')
-
-class Gun (Weapon):
+        super().__init__(4,-1,-5, 'BowArrow')   #(attack ,speed ,defense, name)
+    
+class Gun (Weapon):         #inherits from weapon
     def __init__(self):
-        super().__init__(6,-3,-10, 'Gun')
+        super().__init__(6,-3,-10, 'Gun')        #(attack ,speed ,defense, name)
 
 
 
@@ -91,17 +92,17 @@ class CharacterClass:
         return self.classname
 
 
-class Mage(CharacterClass):
+class Mage(CharacterClass): #inherits from characterclass     
     def __init__(self):
-        super().__init__(4,2,-5, 'Mage')
+        super().__init__(4,2,-5, 'Mage')             #(attack ,speed ,defense, name)
 
-class Hunter(CharacterClass):
+class Hunter(CharacterClass): #inherits from characterclass
     def __init__(self):
-        super().__init__(4,1,0, 'Hunter')
+        super().__init__(4,1,0, 'Hunter')            #(attack ,speed ,defense, name)
 
-class Druid(CharacterClass):
+class Druid(CharacterClass):    #inherits from characterclass
     def __init__(self):
-        super().__init__(0,5,10, 'Druid')
+        super().__init__(0,5,10, 'Druid')            #(attack ,speed ,defense, name)
 
 
 ##
@@ -112,8 +113,8 @@ class Player:
         self._totalspeed = 0
         self._totaldefense = 0
         self._userrace = ''
-        self._userclass = userClass
-        self._userweapon = userWeapon
+        self._userclass = userClass 
+        self._userweapon = userWeapon 
             
     def chooseRace(self):
         print("""
@@ -124,7 +125,7 @@ Races:
  """)
         
         choice = input("Choose a race:")
-        while choice not in ['1','2','3']:
+        while choice not in ['1','2','3']:      
             choice = input("Try again. (1,2 or 3)")
         time.sleep(0.5)
         if choice == '1':
@@ -231,12 +232,12 @@ class Enemy:
 def enemyclass():
     classes=[Mage(), Druid(), Hunter()]
     enemyclass = random.choice(classes)
-    return enemyclass
+    return enemyclass       #randomly picks enemy class
 
 def enemyweapon():
     weapons=[SwordShield(), DualSword(), BowArrow(), Gun()]
     enemyweapon = random.choice(weapons)
-    return enemyweapon
+    return enemyweapon      #randomly picks enemy weapon
 
 
 userClass=chooseClass() #gets the users class
@@ -247,33 +248,33 @@ user.chooseRace() #user choosses player race
 user.printstats() #prints users stats
 
 
-enemyclass = enemyclass()
-enemyweapon = enemyweapon()
+enemyclass = enemyclass() #gets enemy class
+enemyweapon = enemyweapon() #gets enemy weapon
 
-enemy=Enemy(enemyclass, enemyweapon)
+enemy=Enemy(enemyclass, enemyweapon) #aggregation takes place
 enemy.EnemyRace()
-enemy.printenemystats()
+enemy.printenemystats() #prints enemy stats
 
 
 #Combat Section
 numbers = [1,2,3,4,5]
-user._totaldefense = user._totaldefense*random.choice(numbers)
-enemy._enemydefense = enemy._enemydefense*random.choice(numbers)
+user._totaldefense = user._totaldefense*random.choice(numbers) #randomly multiplies health of user and enemy by 1-5
+enemy._enemydefense = enemy._enemydefense*random.choice(numbers) #randomly multiplies health of user and enemy by 1-5
 print('New User Health:', user._totaldefense)
-print('New Enemy Health:', enemy._enemydefense)
+print('New Enemy Health:', enemy._enemydefense) #print user/enemy new healths
 print('The Battle Begins...')
 time.sleep(1)
 
 while user._totaldefense >0 and enemy._enemydefense >0:
-    user._totaldefense -= (enemy._enemyattack*enemy._enemyspeed)
-    enemy._enemydefense -= (user._totalattack*user._totalspeed)
+    user._totaldefense -= (enemy._enemyattack*enemy._enemyspeed) #user health - (enemy speed * enemy attack)
+    enemy._enemydefense -= (user._totalattack*user._totalspeed) #enemy health - (user speed * user attack)
     print('Your Health', user._totaldefense)
     print('Enemy Health', enemy._enemydefense, '\n')
-    time.sleep(1)
+    time.sleep(1) #wait a second till the next turn
     
-if user._totaldefense <0 and enemy._enemydefense <0:
+if user._totaldefense <0 and enemy._enemydefense <0: #if on the same turn both user and enemy health goes below 0, tie game.
     print('TIE GAME')
-elif user._totaldefense >0 and enemy._enemydefense <0:
+elif user._totaldefense >0 and enemy._enemydefense <0: 
     print('You Win!')
 else:
     print('You Lose!')
